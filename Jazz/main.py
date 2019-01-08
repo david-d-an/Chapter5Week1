@@ -15,6 +15,9 @@ from keras.utils import to_categorical
 from keras.optimizers import Adam
 from keras import backend as K
 
+import os
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
+
 
 def djmodel(Tx, n_a, n_values):
     """
@@ -182,8 +185,10 @@ def mainfunc():
     # Fitting model
     model.fit([X, a0, c0], list(Y), epochs=100)
 
+    # Sampling music
     results, indices = predict_and_sample(inference_model, x_initializer, a_initializer, c_initializer)
     print("np.argmax(results[12]) =", np.argmax(results[12]))
     print("np.argmax(results[17]) =", np.argmax(results[17]))
     print("list(indices[12:18]) =", list(indices[12:18]))
 
+    out_stream = generate_music(inference_model)

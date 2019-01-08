@@ -1,4 +1,7 @@
 import numpy as np
+import os
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
+
 
 def softmax(x):
     e_x = np.exp(x - np.max(x))
